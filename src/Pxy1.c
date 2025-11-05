@@ -78,11 +78,11 @@ SEXP Pxy1R(SEXP Rux, SEXP Ruy, SEXP Rnx, SEXP Rny, SEXP Rprob, SEXP Rplog,
   SEXP Rpxy1;
 
   nprotect = 0;
-  Rux   = PROTECT(Rf_coerceVector(Rux,     INTSXP));  nprotect++;
-  Ruy   = PROTECT(Rf_coerceVector(Ruy,     INTSXP));  nprotect++;
-  Rnx   = PROTECT(Rf_coerceVector(Rnx,     INTSXP));  nprotect++;
-  Rny   = PROTECT(Rf_coerceVector(Rny,     INTSXP));  nprotect++;
-  Rprob = PROTECT(Rf_coerceVector(Rprob,   REALSXP)); nprotect++;
+  Rux   = PROTECT(Rf_coerceVector(Rux,   INTSXP));  nprotect++;
+  Ruy   = PROTECT(Rf_coerceVector(Ruy,   INTSXP));  nprotect++;
+  Rnx   = PROTECT(Rf_coerceVector(Rnx,   INTSXP));  nprotect++;
+  Rny   = PROTECT(Rf_coerceVector(Rny,   INTSXP));  nprotect++;
+  Rprob = PROTECT(Rf_coerceVector(Rprob, REALSXP)); nprotect++;
 
   ux1  = INTEGER(Rux);            // 1-based
   uy1  = INTEGER(Ruy);            // 1-based 
@@ -237,6 +237,7 @@ SEXP Pxy1R(SEXP Rux, SEXP Ruy, SEXP Rnx, SEXP Rny, SEXP Rprob, SEXP Rplog,
 }
 
 /********************* R-facing wrapper of Pxy, m = 1 *************************/
+/*** out soon, first compare with V above (used in A0A1.R in tes, not asterTES ***/
 
 SEXP Pxy1Rwrap(SEXP Rux, SEXP Ruy, SEXP Rnx, SEXP Rny, SEXP Rprob, SEXP Rplog,
 	       SEXP Rlgam, SEXP Rlnum)
@@ -250,11 +251,11 @@ SEXP Pxy1Rwrap(SEXP Rux, SEXP Ruy, SEXP Rnx, SEXP Rny, SEXP Rprob, SEXP Rplog,
   SEXP Rpxy1;
 
   nprotect = 0;
-  Rux   = PROTECT(Rf_coerceVector(Rux,     INTSXP));  nprotect++;
-  Ruy   = PROTECT(Rf_coerceVector(Ruy,     INTSXP));  nprotect++;
-  Rnx   = PROTECT(Rf_coerceVector(Rnx,     INTSXP));  nprotect++;
-  Rny   = PROTECT(Rf_coerceVector(Rny,     INTSXP));  nprotect++;
-  Rprob = PROTECT(Rf_coerceVector(Rprob,   REALSXP)); nprotect++;
+  Rux   = PROTECT(Rf_coerceVector(Rux,   INTSXP));  nprotect++;
+  Ruy   = PROTECT(Rf_coerceVector(Ruy,   INTSXP));  nprotect++;
+  Rnx   = PROTECT(Rf_coerceVector(Rnx,   INTSXP));  nprotect++;
+  Rny   = PROTECT(Rf_coerceVector(Rny,   INTSXP));  nprotect++;
+  Rprob = PROTECT(Rf_coerceVector(Rprob, REALSXP)); nprotect++;
 
   ux1  = INTEGER(Rux);            // 1-based
   uy1  = INTEGER(Ruy);            // 1-based 

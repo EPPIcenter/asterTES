@@ -52,7 +52,6 @@ illustrate, we use a package `dcifer`:
 
 ``` r
 # install.packages("dcifer")
-# Stay tuned for upcoming dcifer updates! Changes may affect the code below
 library(dcifer)
 ```
 
@@ -65,11 +64,11 @@ dsmp <- dsmp[dfsmp$smp_id]                     # same order as dfsmp
 coi  <- getCOI(dsmp, lrank = 2)
 
 # D0 only to calculate afreq and rbg
-ismp0 <- dfsmp$day == 0
-afreq <- calcAfreq(dsmp[ismp0], coi[ismp0], tol = 1e-5)
-minfr <- 1/sum(coi)
-afreq <- lapply(afreq, function(af, minfr) {af[af == 0] <- minfr; af/sum(af)},
-                minfr = minfr)                 # fill in 0-frequencies
+ismp0  <- dfsmp$day == 0
+afreq  <- calcAfreq(dsmp[ismp0], coi[ismp0], tol = 1e-5)
+da_upd <- matchAfreq(dsmp, afreq, minfreq = 1/sum(coi)/10)
+dsmp   <- da_upd$dsmp
+afreq  <- da_upd$afreq
 rhat <- ibdDat(dsmp[ismp0], coi[ismp0], afreq, pval = FALSE)
 rbg  <- mean(rhat, na.rm = TRUE)
 ```
@@ -106,7 +105,7 @@ i0 <- iid[1]; ir <- iid[2]
 #> [1] TRUE
 #> 
 #> $cond_prob
-#> [1] -132.366 -127.106
+#> [1] -134.3464 -129.0769
 ```
 
 We can also process the whole dataset and estimate the therapeutic
@@ -127,9 +126,9 @@ head(res$classification)
 #>   id lastday outcome recrud     logA0     logA1 ppost_user ppost_empB
 #> 1 A1      NA       0     NA        NA        NA         NA         NA
 #> 2 A2      NA       0     NA        NA        NA         NA         NA
-#> 3 A3      28       1   TRUE -132.3660 -127.1060  0.9948313  0.9768664
+#> 3 A3      28       1   TRUE -134.3464 -129.0769  0.9948799  0.9770802
 #> 4 A4      NA       0     NA        NA        NA         NA         NA
-#> 5 A5      28       1   TRUE -132.1396 -127.6724  0.9886500  0.9502748
+#> 5 A5      28       1   TRUE -131.8950 -127.4186  0.9887532  0.9507096
 #> 6 A6      NA       0     NA        NA        NA         NA         NA
 ```
 

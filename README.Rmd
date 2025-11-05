@@ -41,7 +41,6 @@ To analyze these data, we first need to estimate COI, population allele frequenc
 
 ```{r}
 # install.packages("dcifer")
-# Stay tuned for upcoming dcifer updates! Changes may affect the code below
 library(dcifer)
 ```
 
@@ -53,11 +52,11 @@ dsmp <- dsmp[dfsmp$smp_id]                     # same order as dfsmp
 coi  <- getCOI(dsmp, lrank = 2)
 
 # D0 only to calculate afreq and rbg
-ismp0 <- dfsmp$day == 0
-afreq <- calcAfreq(dsmp[ismp0], coi[ismp0], tol = 1e-5)
-minfr <- 1/sum(coi)
-afreq <- lapply(afreq, function(af, minfr) {af[af == 0] <- minfr; af/sum(af)},
-                minfr = minfr)                 # fill in 0-frequencies
+ismp0  <- dfsmp$day == 0
+afreq  <- calcAfreq(dsmp[ismp0], coi[ismp0], tol = 1e-5)
+da_upd <- matchAfreq(dsmp, afreq, minfreq = 1/sum(coi)/10)
+dsmp   <- da_upd$dsmp
+afreq  <- da_upd$afreq
 rhat <- ibdDat(dsmp[ismp0], coi[ismp0], afreq, pval = FALSE)
 rbg  <- mean(rhat, na.rm = TRUE)
 ```
